@@ -1,0 +1,109 @@
+/* ING-stijl kleuren (zonder logo's)
+   Bron palet: Orange #ff6200, Navy #000066. */
+:root{
+  --ing-orange:#ff6200;
+  --ing-navy:#000066;
+  --bg:#f7f7fb;
+  --card:#ffffff;
+  --text:#0b0b18;
+  --muted:#5b5b72;
+  --green:#1f7a1f;
+  --red:#b1002e;
+  --border:#e7e7ee;
+  --shadow:0 8px 24px rgba(0,0,20,.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background:var(--bg);
+  color:var(--text);
+}
+
+.app-header{
+  background: var(--ing-navy);
+  color:#fff;
+  padding: 16px clamp(16px, 4vw, 32px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.app-header h1{margin:0;font-size: clamp(20px, 2.6vw, 28px);font-weight:700;letter-spacing: .2px}
+.header-actions{display:flex; gap:8px; align-items:center}
+
+.btn{
+  appearance:none; border:1px solid var(--border); background:#fff; color:var(--ing-navy);
+  padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600; transition:.2s transform, .2s box-shadow;
+}
+.btn:hover{transform:translateY(-1px); box-shadow: var(--shadow)}
+.btn.primary{ background: var(--ing-orange); border-color: var(--ing-orange); color:#fff }
+.btn.ghost{ background: transparent; color:#fff; border-color: rgba(255,255,255,.35)}
+.btn.danger{ background:#fff0f3; color:#8a0030; border-color:#ffd1dd }
+.file-import{ display:inline-flex; align-items:center;}
+
+.container{ padding: 20px clamp(16px, 4vw, 32px); display:grid; gap:20px;}
+
+.filters{
+  display:flex; flex-wrap:wrap; gap:16px; align-items: end; justify-content: space-between;
+}
+.range-controls{ display:flex; gap:10px; align-items:end }
+.range-controls label{display:flex; flex-direction:column; gap:6px; font-size:14px; color:var(--muted)}
+.range-controls select, .range-controls input{ padding:10px 12px; border-radius:10px; border:1px solid var(--border)}
+.custom-range.hidden{ display:none }
+
+.tag-filter{ display:flex; gap:10px; align-items:end}
+.tag-filter select{ padding:10px 12px; border-radius:10px; border:1px solid var(--border)}
+
+.kpis{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px }
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow: var(--shadow);
+}
+.kpi .kpi-label{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.3px }
+.kpi .kpi-value{ font-size: 24px; margin-top:6px; font-weight:800 }
+.kpi .kpi-subtext{ color:var(--muted); font-size:12px; margin-top:6px }
+.kpi .positive{ color:var(--green) }
+.kpi .negative{ color:var(--red) }
+
+.grid{ display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+.whatif .whatif-header{ display:flex; gap:8px; align-items: baseline; justify-content: space-between; flex-wrap:wrap }
+.muted{ color:var(--muted)}
+.whatif .whatif-form{ display:flex; gap:10px; align-items:end; margin-top:10px; flex-wrap:wrap }
+.whatif input{ padding:10px 12px; border-radius:10px; border:1px solid var(--border)}
+
+.transactions .transactions-head{
+  display:flex; align-items:center; justify-content: space-between; gap:12px; margin-bottom:10px
+}
+.search input{ padding:10px 12px; border-radius:10px; border:1px solid var(--border); min-width:260px}
+
+.table-wrap{ overflow:auto; border-radius:12px; border:1px solid var(--border)}
+table{ width:100%; border-collapse: collapse; background:#fff }
+th, td{ padding:12px; text-align:left; border-bottom:1px solid var(--border); vertical-align: top}
+thead th{ background:#f9fafc; position: sticky; top:0; z-index:2; cursor:pointer}
+tbody tr:hover{ background:#fffdfa }
+.badge{ display:inline-block; padding:4px 8px; border-radius:999px; background:#f5f7ff; color:var(--ing-navy); font-weight:700; font-size:12px }
+
+.app-footer{ padding:16px clamp(16px, 4vw, 32px); color:var(--muted) }
+
+/* Modal */
+.modal{ position: fixed; inset:0; display:grid; place-items: center; background: rgba(0,0,20,.4); padding:16px }
+.modal.hidden{ display:none }
+.modal-content{ background:#fff; border-radius:16px; width:min(720px, 96vw); box-shadow: var(--shadow); border:1px solid var(--border) }
+.modal-header{ display:flex; align-items:center; justify-content: space-between; padding:14px 16px; border-bottom:1px solid var(--border) }
+.modal-body{ padding:16px }
+.icon-btn{ border:none; background:transparent; font-size:20px; cursor:pointer }
+.form-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px }
+.form-grid label{ display:flex; flex-direction:column; gap:6px; color:var(--muted); font-size:14px }
+.form-grid input, .form-grid select{ padding:10px 12px; border:1px solid var(--border); border-radius:10px; color:var(--text) }
+
+.recurring legend{ font-weight:800; color:var(--ing-navy) }
+.recurring .inline{ display:flex; gap:8px; align-items:center; margin:.2rem 0 .6rem }
+.recurring-row{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px }
+
+.modal-actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:16px }
+
+/* Focus */
+:focus-visible{ outline: 3px solid var(--ing-orange); outline-offset: 2px }
