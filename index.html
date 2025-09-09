@@ -14,7 +14,8 @@
   <header class="app-header">
     <h1>Budget & Forecast</h1>
     <div class="header-actions">
-      <button id="addTxnBtn" class="btn primary">Nieuwe transactie</button>
+      <button id="addExpenseBtn" class="btn">Nieuwe uitgave</button>
+      <button id="addIncomeBtn" class="btn primary">Nieuwe inkomst</button>
       <button id="exportBtn" class="btn">Exporteren</button>
       <label class="file-import btn">
         <input id="importFile" type="file" accept="application/json" hidden />
@@ -172,7 +173,6 @@
               <select id="txnFrequency">
                 <option value="weekly">Wekelijks</option>
                 <option value="monthly" selected>Maandelijks</option>
-                <option value="quarterly">Per kwartaal</option>
                 <option value="yearly">Jaarlijks</option>
               </select>
             </label>
