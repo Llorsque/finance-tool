@@ -220,7 +220,7 @@
         el('td', {}, [ el('button', { class:'btn', text:'Bewerk', onclick:()=>openModal(t.id) }) ])
       ]);
       tbody.appendChild(tr);
-    });
+    }); } // end if Chart
   }
 
   function renderKPIs(data){
@@ -245,11 +245,11 @@
     const values = Object.values(spend);
 
     if(labelChart) labelChart.destroy();
-    labelChart = new Chart(document.getElementById('labelChart'), {
+    if (window.Chart) { labelChart = new Chart(document.getElementById('labelChart'), {
       type: 'doughnut',
       data: { labels, datasets: [{ data: values }]},
       options: { plugins: { legend: { position: 'bottom' } }, responsive: true, maintainAspectRatio: false }
-    });
+    }); } // end if Chart
 
     const all = [...periodTxns].sort((a,b)=> new Date(a.date) - new Date(b.date));
     let cum = 0;
@@ -260,11 +260,11 @@
       y.push(cum);
     });
     if(saldoChart) saldoChart.destroy();
-    saldoChart = new Chart(document.getElementById('saldoChart'), {
+    if (window.Chart) { saldoChart = new Chart(document.getElementById('saldoChart'), {
       type: 'line',
       data: { labels: x, datasets: [{ label:'Netto (cumulatief)', data: y, fill:false, tension:.2 }]},
       options: { plugins:{ legend:{ display:false } }, responsive:true, maintainAspectRatio:false }
-    });
+    }); } // end if Chart
   }
 
   function render(){
@@ -354,11 +354,22 @@
       closeModal();
     }
   });
-  byId('addExpenseBtn').addEventListener('click', ()=>openModal(null, { type:'expense' }));
-  byId('addIncomeBtn').addEventListener('click', ()=>openModal(null, { type:'income' }));
-  byId('modalClose').addEventListener('click', closeModal);
+  const _expBtn = byId('addExpenseBtn'); if(_expBtn) _expBtn.addEventListener('click', ()=>openModal(null, { type:'expense' }));
+  const _incBtn = byId('addIncomeBtn'); if(_incBtn) _incBtn.addEventListener('click', ()=>openModal(null, { type:'income' }));
+  const _closeBtn = byId('modalClose'); if(_closeBtn) _closeBtn.addEventListener('click', closeModal);
   window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal() });
   modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal() });
+  // Fallback: event delegation (works even if buttons are added later)
+  document.addEventListener('click', (e)=>{
+    const t = e.target;
+    if(t && (t.id === 'addExpenseBtn' || (t.closest && t.closest('#addExpenseBtn')))) {
+      e.preventDefault(); openModal(null, { type:'expense' }); 
+    }
+    if(t && (t.id === 'addIncomeBtn' || (t.closest && t.closest('#addIncomeBtn')))) {
+      e.preventDefault(); openModal(null, { type:'income' }); 
+    }
+  });
+
 
   /** ---------- Export / Import ---------- */
   byId('exportBtn').addEventListener('click', ()=>{
