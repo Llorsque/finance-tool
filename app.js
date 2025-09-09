@@ -32,6 +32,37 @@
   };
 
   const byId = id => document.getElementById(id);
+
+  // ---- Hardening & Debug ----
+  function showBanner(msg){
+    const b = document.getElementById('debugBanner');
+    if(!b) return;
+    b.style.display = 'block';
+    b.style.background = '#fff0f0';
+    b.style.border = '1px solid #ffc9c9';
+    b.style.color = '#8a0030';
+    b.style.padding = '10px 16px';
+    b.style.margin = '8px 16px';
+    b.style.borderRadius = '12px';
+    b.textContent = msg;
+  }
+  window.addEventListener('error', function(ev){
+    showBanner('JavaScript fout: ' + (ev?.message || 'onbekend'));
+  });
+
+  // Debug tools via ?debug=1
+  if (location.search.includes('debug=1')) {
+    var tools = document.getElementById('debugTools');
+    if(tools) tools.style.display = 'block';
+    var dbg = document.getElementById('debugBtn');
+    if(dbg) dbg.addEventListener('click', function(){ openModal(null, { type:'expense' }); });
+  }
+
+  // Keyboard: "n" -> open nieuwe transactie (uitgave)
+  window.addEventListener('keydown', function(e){
+    if (e.key && e.key.toLowerCase() === 'n') { openModal(null, { type:'expense' }); }
+  });
+
   const el = (tag, attrs={}, children=[]) => {
     const n = document.createElement(tag);
     Object.entries(attrs).forEach(([k,v]) => {
